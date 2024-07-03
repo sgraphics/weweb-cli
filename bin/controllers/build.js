@@ -80,6 +80,7 @@ exports.build = (name, type) => {
                     https: false, // https-browserify can be polyfilled here if needed
                     http: false, // stream-http can be polyfilled here if needed
                     zlib: false, // browserify-zlib can be polyfilled here if needed
+                    "buffer": require.resolve('buffer/'),
                 }
             },
             resolveLoader: {
@@ -198,6 +199,10 @@ exports.build = (name, type) => {
                 }),
                 // make sure to include the plugin for the magic
                 new VueLoaderPlugin(),
+                new webpack.ProvidePlugin({
+                    process: 'process/browser',
+                    Buffer: ['buffer', 'Buffer'],
+                })
             ],
         };
 

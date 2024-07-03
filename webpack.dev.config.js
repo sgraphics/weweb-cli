@@ -204,6 +204,7 @@ module.exports = function () {
             // make sure to include the plugin for the magic
             new VueLoaderPlugin(),
             new webpack.ProvidePlugin({
+                process: 'process/browser',
                 Buffer: ['buffer', 'Buffer'],
             })
         ],
