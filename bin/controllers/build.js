@@ -72,6 +72,15 @@ exports.build = (name, type) => {
             resolve: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
                 descriptionFiles: [`${wewebCliPath}/package.json`, "package.json"],
+                fallback: {
+                    crypto: false, // crypto-browserify can be polyfilled here if needed
+                    stream: false, // stream-browserify can be polyfilled here if needed
+                    assert: false, // assert can be polyfilled here if needed
+                    os: false, // os-browserify can be polyfilled here if needed
+                    https: false, // https-browserify can be polyfilled here if needed
+                    http: false, // stream-http can be polyfilled here if needed
+                    zlib: false, // browserify-zlib can be polyfilled here if needed
+                }
             },
             resolveLoader: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
