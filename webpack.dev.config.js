@@ -57,29 +57,15 @@ module.exports = function () {
         },
         resolve: {
             fallback: {
-                assert: require.resolve('assert'),
-                buffer: require.resolve('buffer'),
-                console: require.resolve('console-browserify'),
-                constants: require.resolve('constants-browserify'),
-                crypto: require.resolve('crypto-browserify'),
-                domain: require.resolve('domain-browser'),
-                events: require.resolve('events'),
-                http: require.resolve('stream-http'),
-                https: require.resolve('https-browserify'),
-                os: require.resolve('os-browserify/browser'),
-                path: require.resolve('path-browserify'),
-                punycode: require.resolve('punycode'),
-                process: require.resolve('process/browser'),
-                querystring: require.resolve('querystring-es3'),
-                stream: require.resolve('stream-browserify'),
-                string_decoder: require.resolve('string_decoder'),
-                sys: require.resolve('util'),
-                timers: require.resolve('timers-browserify'),
-                tty: require.resolve('tty-browserify'),
-                url: require.resolve('url'),
-                util: require.resolve('util'),
-                vm: require.resolve('vm-browserify'),
-                zlib: require.resolve('browserify-zlib'),
+                buffer: require.resolve('buffer/'),
+                crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
+                stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
+                assert: false, // require.resolve("assert") can be polyfilled here if needed
+                http: false, // require.resolve("stream-http") can be polyfilled here if needed
+                https: false, // require.resolve("https-browserify") can be polyfilled here if needed
+                os: false, // require.resolve("os-browserify") can be polyfilled here if needed
+                url: false, // require.resolve("url") can be polyfilled here if needed
+                zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
             }
         },
         devtool: "inline-source-map",
@@ -210,18 +196,18 @@ module.exports = function () {
             path: path.join(__dirname, "dist"),
             filename: "[name].js",
         },
-        plugins: [
+        plugins: [            
+            new webpack.ProvidePlugin({
+                process: 'process/browser',
+                Buffer: ['buffer', 'Buffer'],
+            }),
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: "true",
                 __VUE_PROD_DEVTOOLS__: "false",
                 __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "false",
             }),
             // make sure to include the plugin for the magic
-            new VueLoaderPlugin(),
-            new webpack.ProvidePlugin({
-                process: 'process/browser',
-                Buffer: ['buffer', 'Buffer'],
-            })
+            new VueLoaderPlugin()
         ],
     };
 
