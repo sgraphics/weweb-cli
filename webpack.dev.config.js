@@ -55,6 +55,17 @@ module.exports = function () {
             react: "React",
             "react-dom": "ReactDOM",
         },
+        resolve: {
+            fallback: {
+                crypto: false, // crypto-browserify can be polyfilled here if needed
+                stream: false, // stream-browserify can be polyfilled here if needed
+                assert: false, // assert can be polyfilled here if needed
+                os: false, // os-browserify can be polyfilled here if needed
+                https: false, // https-browserify can be polyfilled here if needed
+                http: false, // stream-http can be polyfilled here if needed
+                zlib: false, // browserify-zlib can be polyfilled here if needed
+            }
+        },
         devtool: "inline-source-map",
         devServer: {
             https: true,
