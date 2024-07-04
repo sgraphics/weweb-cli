@@ -4,7 +4,6 @@ const { VueLoaderPlugin } = require("vue-loader");
 const autoprefixer = require("autoprefixer");
 const fs = require("fs");
 const webpack = require("webpack");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const wewebClientVersion = "1.0.40";
 
@@ -57,7 +56,6 @@ module.exports = function () {
             "react-dom": "ReactDOM",
         },
         resolve: {
-            symlinks : false,
             fallback: {
                 buffer: require.resolve('buffer/'),
                 crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
@@ -204,9 +202,6 @@ module.exports = function () {
             }),
             new webpack.ProvidePlugin({
                 process: 'process/browser'
-            }),
-            new BundleAnalyzerPlugin({
-              analyzerMode: "disabled",
             }),
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: "true",

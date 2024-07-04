@@ -7,7 +7,6 @@ const { VueLoaderPlugin } = require("vue-loader");
 const autoprefixer = require("autoprefixer");
 const fs = require("fs");
 const webpack = require("webpack");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 exports.build = (name, type) => {
     if (!name) {
@@ -71,7 +70,6 @@ exports.build = (name, type) => {
                 "react-dom": "ReactDOM",
             },
             resolve: {
-                symlinks : false,
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
                 descriptionFiles: [`${wewebCliPath}/package.json`, "package.json"],
                 fallback: {
@@ -200,9 +198,6 @@ exports.build = (name, type) => {
                 }),
                 new webpack.ProvidePlugin({
                     process: 'process/browser'
-                }),
-                new BundleAnalyzerPlugin({
-                  analyzerMode: "disabled",
                 }),
                 new webpack.DefinePlugin({
                     __VUE_OPTIONS_API__: "true",
