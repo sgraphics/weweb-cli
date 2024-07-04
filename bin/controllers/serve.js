@@ -7,7 +7,7 @@ exports.serve = (port) => {
     if (!prebuildCore.prebuild({ port })) {
         console.log("BUILD ERROR");
     } else {
-        shell.cd("node_modules/@sgraphics/weweb-cli/");
+        shell.cd("node_modules/@weweb/cli/");
 
         const cmd = `npx webpack-dev-server --config webpack.dev.config.js --env=dev --port=${port}`;
         const childProcess = shell.exec(cmd, { async: true });
