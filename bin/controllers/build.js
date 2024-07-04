@@ -6,12 +6,8 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const autoprefixer = require("autoprefixer");
 const fs = require("fs");
-
-const stdLibBrowser = require('node-stdlib-browser');
-const {
-	NodeProtocolUrlPlugin
-} = require('node-stdlib-browser/helpers/webpack/plugin');
 const webpack = require("webpack");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 exports.build = (name, type) => {
     if (!name) {
@@ -75,10 +71,20 @@ exports.build = (name, type) => {
                 "react-dom": "ReactDOM",
             },
             resolve: {
-                alias: stdLibBrowser,
+                symlinks : false,
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
                 descriptionFiles: [`${wewebCliPath}/package.json`, "package.json"],
-
+                fallback: {
+                    buffer: require.resolve('buffer/'),
+                    crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
+                    stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
+                    assert: false, // require.resolve("assert") can be polyfilled here if needed
+                    http: false, // require.resolve("stream-http") can be polyfilled here if needed
+                    https: false, // require.resolve("https-browserify") can be polyfilled here if needed
+                    os: false, // require.resolve("os-browserify") can be polyfilled here if needed
+                    url: false, // require.resolve("url") can be polyfilled here if needed
+                    zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
+                }
             },
             resolveLoader: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
@@ -189,11 +195,14 @@ exports.build = (name, type) => {
                 filename: "manager.js",
             },
             plugins: [
-                
-                new NodeProtocolUrlPlugin(),
                 new webpack.ProvidePlugin({
-                    process: stdLibBrowser.process,
-                    Buffer: [stdLibBrowser.buffer, 'Buffer']
+                    Buffer: ['buffer', 'Buffer'],
+                }),
+                new webpack.ProvidePlugin({
+                    process: 'process/browser'
+                }),
+                new BundleAnalyzerPlugin({
+                  analyzerMode: "disabled",
                 }),
                 new webpack.DefinePlugin({
                     __VUE_OPTIONS_API__: "true",
