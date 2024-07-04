@@ -4,7 +4,10 @@ const { VueLoaderPlugin } = require("vue-loader");
 const autoprefixer = require("autoprefixer");
 const fs = require("fs");
 const webpack = require("webpack");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const stdLibBrowser = require('node-stdlib-browser');
+const {
+	NodeProtocolUrlPlugin
+} = require('node-stdlib-browser/helpers/webpack/plugin');
 
 const wewebClientVersion = "1.0.40";
 
@@ -57,18 +60,7 @@ module.exports = function () {
             "react-dom": "ReactDOM",
         },
         resolve: {
-            symlinks : false,
-            fallback: {
-                buffer: require.resolve('buffer/'),
-                crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
-                stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
-                assert: false, // require.resolve("assert") can be polyfilled here if needed
-                http: false, // require.resolve("stream-http") can be polyfilled here if needed
-                https: false, // require.resolve("https-browserify") can be polyfilled here if needed
-                os: false, // require.resolve("os-browserify") can be polyfilled here if needed
-                url: false, // require.resolve("url") can be polyfilled here if needed
-                zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
-            }
+            alias: stdLibBrowser
         },
         devtool: "inline-source-map",
         devServer: {
@@ -199,14 +191,10 @@ module.exports = function () {
             filename: "[name].js",
         },
         plugins: [
+            new NodeProtocolUrlPlugin(),
             new webpack.ProvidePlugin({
-                Buffer: ['buffer', 'Buffer'],
-            }),
-            new webpack.ProvidePlugin({
-                process: 'process/browser'
-            }),
-            new BundleAnalyzerPlugin({
-              analyzerMode: "disabled",
+                process: stdLibBrowser.process,
+                Buffer: [stdLibBrowser.buffer, 'Buffer']
             }),
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: "true",
