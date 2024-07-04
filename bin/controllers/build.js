@@ -66,8 +66,7 @@ exports.build = (name, type) => {
             mode: "production",
             externals: {
                 vue: "Vue",
-                react: "React",
-                "react-dom": "ReactDOM",
+                react: "React"
             },
             resolve: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
