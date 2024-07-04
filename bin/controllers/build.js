@@ -65,8 +65,7 @@ exports.build = (name, type) => {
             entry: `${wewebCliPath}/assets/index.js`,
             mode: "production",
             externals: {
-                vue: "Vue",
-                react: "React"
+                vue: "Vue"
             },
             resolve: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],

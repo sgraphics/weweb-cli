@@ -51,8 +51,7 @@ module.exports = function () {
         },
         mode: "development",
         externals: {
-            vue: "Vue",
-            react: "React"
+            vue: "Vue"
         },
         resolve: {
             fallback: {
