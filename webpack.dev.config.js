@@ -67,9 +67,9 @@ module.exports = function () {
                 os: false, // require.resolve("os-browserify") can be polyfilled here if needed
                 url: false, // require.resolve("url") can be polyfilled here if needed
                 zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
-                "process": require.resolve("process/browser"),
-                extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.vue']  // Add necessary extensions
-            }
+                "process": require.resolve("process/browser")
+            },
+            extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.vue']  // Add necessary extensions
         },
         devtool: "inline-source-map",
         devServer: {
