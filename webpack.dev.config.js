@@ -55,11 +55,10 @@ module.exports = function () {
         },
         resolve: {
             alias: {
-              process: 'process/browser.js',
+              process: 'process/browser',
             },
             fallback: {
-                buffer: require.resolve('buffer/'),                
-                process: require.resolve("process/browser"),
+                buffer: require.resolve('buffer/'),
                 crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
                 stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
                 assert: false, // require.resolve("assert") can be polyfilled here if needed
@@ -68,8 +67,7 @@ module.exports = function () {
                 os: false, // require.resolve("os-browserify") can be polyfilled here if needed
                 url: false, // require.resolve("url") can be polyfilled here if needed
                 zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
-            },
-            extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.vue', '.mjs']  // Add necessary extensions
+            }
         },
         devtool: "inline-source-map",
         devServer: {

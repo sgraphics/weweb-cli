@@ -71,11 +71,10 @@ exports.build = (name, type) => {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
                 descriptionFiles: [`${wewebCliPath}/package.json`, "package.json"],
                 alias: {
-                  process: 'process/browser.js',
+                  process: 'process/browser',
                 },
                 fallback: {
-                    buffer: require.resolve('buffer/'),  
-                    process: require.resolve("process/browser"),
+                    buffer: require.resolve('buffer/'),
                     crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
                     stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
                     assert: false, // require.resolve("assert") can be polyfilled here if needed
@@ -85,7 +84,6 @@ exports.build = (name, type) => {
                     url: false, // require.resolve("url") can be polyfilled here if needed
                     zlib: false // require.resolve("browserify-zlib") can be polyfilled here if needed
                 },
-                extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.vue', '.mjs']  // Add necessary extensions
             },
             resolveLoader: {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
