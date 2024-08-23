@@ -71,7 +71,7 @@ exports.build = (name, type) => {
                 modules: [path.resolve(`${wewebCliPath}/node_modules`), "node_modules"],
                 descriptionFiles: [`${wewebCliPath}/package.json`, "package.json"],
                 alias: {
-                  process: 'process/browser',
+                  process: 'process/browser.js',
                 },
                 fallback: {
                     buffer: require.resolve('buffer/'),
@@ -198,7 +198,7 @@ exports.build = (name, type) => {
                     Buffer: ['buffer', 'Buffer'],
                 }),
                 new webpack.ProvidePlugin({
-                    process: 'process/browser'
+                    process: 'process/browser.js'
                 }),
                 new webpack.DefinePlugin({
                     __VUE_OPTIONS_API__: "true",
